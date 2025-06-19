@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ThemeToggle from './ThemeToggle' // adjust the path as needed
 
 const Navbar = ({ currentPage, onNavigate, onScrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -14,12 +15,10 @@ const Navbar = ({ currentPage, onNavigate, onScrollToSection }) => {
     { name: 'Contact', action: () => onNavigate('contact') }
   ]
 
-  // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
-    
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -68,10 +67,12 @@ const Navbar = ({ currentPage, onNavigate, onScrollToSection }) => {
                 {link.name}
               </button>
             ))}
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* CTA Button & Theme Toggle for mobile */}
+          <div className="hidden lg:flex items-center">
             <button
               onClick={() => onNavigate('pricing')}
               className="bg-cyan-400 hover:bg-cyan-300 text-blue-900 font-semibold px-6 py-2 rounded-lg text-sm transition-colors duration-200 inline-flex items-center gap-2"
@@ -120,16 +121,18 @@ const Navbar = ({ currentPage, onNavigate, onScrollToSection }) => {
                 {link.name}
               </button>
             ))}
-            <div className="pt-2 pb-4">
+            <div className="flex items-center pt-2 pb-4 gap-2">
               <button
                 onClick={() => {
                   onNavigate('pricing')
                   setMobileMenuOpen(false)
                 }}
-                className="block w-full bg-cyan-400 hover:bg-cyan-300 text-blue-900 font-semibold px-4 py-3 rounded-lg text-center transition-colors duration-200"
+                className="flex-1 bg-cyan-400 hover:bg-cyan-300 text-blue-900 font-semibold px-4 py-3 rounded-lg text-center transition-colors duration-200"
               >
                 Start Free Trial
               </button>
+              {/* Theme Toggle for mobile */}
+              <ThemeToggle />
             </div>
           </div>
         </div>
